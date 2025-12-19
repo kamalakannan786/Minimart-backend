@@ -27,11 +27,8 @@ connectDB().then(async () => {
 
 // Middleware
 app.use(cors({
-  origin: [
-    'http://localhost:3000',
-    'https://storeinventory-omega.vercel.app'
-  ],
-  credentials: true,
+  origin: '*',
+  credentials: false,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -46,6 +43,11 @@ app.use('/api/users', require('./routes/users'));
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'MiniMart API is running' });
+});
+
+// Test route
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'Backend is working!', timestamp: new Date() });
 });
 
 const PORT = process.env.PORT || 5001;
