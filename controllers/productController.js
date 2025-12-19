@@ -10,10 +10,11 @@ const getAllProducts = async (req, res) => {
     }
     
     const products = await Product.find(query).sort({ createdAt: -1 });
+    console.log(`Found ${products.length} products`);
     res.json({ products });
   } catch (error) {
     console.error('Get products error:', error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Failed to fetch products', error: error.message });
   }
 };
 
